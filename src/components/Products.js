@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { add } from "../store/cartSlice";
 import { useDispatch  ,useSelector} from "react-redux";
 import { fetchproduct } from "../store/productSlice";
@@ -20,6 +20,9 @@ const Products = () => {
 
   const handleAdd = (product) =>{
     dispatch(add(product))
+    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
+    cartItems[product.id] = product;
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }
   if (status === STATUSES.LOADING) {
     return <h4>Loading....</h4>;
